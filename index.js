@@ -1,6 +1,6 @@
 (function(doc) {
 
-  // ゲーム内ローカル変数 ... Vue.jsで例えると「data」、Reactだと「useState」
+  // ゲーム内ローカル変数 ... Vue.jsで例えると「data」、Reactだと「useState」みたいなやつ
   const state = {
     jsonData: [],
     currentQuestion: -1,
@@ -8,7 +8,7 @@
     prizeTable: [1, 2, 3, 5, 10, 15, 25, 50, 75, 100, 150, 250, 500, 750, 1000]
   }
 
-  // htmlから要素を取得
+  // htmlから要素を取得（vanillaはこれが面倒）
   const challengePrize = doc.querySelector('.js-challengePrize')
   const questionText = doc.querySelector('.js-questionText')
   const choicesItem = doc.querySelectorAll('.js-choicesItem')
@@ -38,16 +38,21 @@
 
   // 問題と選択肢と、挑戦中の賞金を表示
   const setQuestion = () => {
+    // 次の問題を表示するため、現在の問題数へ＋１を加算
     state.currentQuestion = state.currentQuestion + 1
-    if (state.currentQuestion > 0) {
+    // 正解画面が表示状態だった場合、非表示とする
+    if (successModal.className.indexOf('visible') > 0) {
       successModal.classList.remove('visible')
     }
+    // 問題文の設置
     questionText.textContent = `Q${state.currentQuestion + 1} : ${state.jsonData[state.currentQuestion].question}`
+    // 選択肢の設置
     const getKey = num => Object.keys(state.jsonData[state.currentQuestion].choices)[num]
     Object.values(state.jsonData[state.currentQuestion].choices).forEach((d, i) => {
       choicesItem[i].textContent = `${getKey(i)} : ${d}`
       choicesItem[i].setAttribute('data-answer', getKey(i))
     })
+    // 挑戦中の賞金を設置
     challengePrize.textContent = `￥${(state.prizeTable[state.currentQuestion] * 10000).toLocaleString()}`
   }
 
