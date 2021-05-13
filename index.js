@@ -25,15 +25,14 @@
   const failedModal = doc.querySelector('.js-failedModal')
   const returnTop = doc.querySelectorAll('.js-returnTop')
 
+  fetch('https://api-charades-fzx9fn3j387f.netlify.app/.netlify/functions/quiz-millionaire')
+  .then(res => res.json())
+  .then(res => state.jsonData = res)
+
   // fetch api でクイズ情報のjsonファイルを取得 > ローカル変数へ格納 > ゲームを実行
   const gameStart = () => {
     startModal.classList.add('hidden')
-    fetch('./questions.json')
-    .then(res => res.json())
-    .then(res => {
-      state.jsonData = res
-      setQuestion()
-    })
+    setQuestion()
   }
 
   // 問題と選択肢と、挑戦中の賞金を表示
