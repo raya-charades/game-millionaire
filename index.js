@@ -29,12 +29,12 @@
   const gameStart = () => {
     startModal.classList.add('hidden')
     fetch('https://api-charades-fzx9fn3j387f.netlify.app/.netlify/functions/quiz-millionaire')
-    .then(res => res.json())
-    .then(res => state.jsonData = res)
-    .then(() => setQuestion())
-    .catch(() => {
-      console.error('データ取得に失敗しました。再読み込みをしてください。')
-    })
+      .then(res => res.json())
+      .then(res => state.jsonData = res)
+      .then(() => setQuestion())
+      .catch(() => {
+        console.error('データ取得に失敗しました。再読み込みをしてください。')
+      })
   }
 
   // 問題と選択肢と、挑戦中の賞金を表示
