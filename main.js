@@ -23,16 +23,19 @@
   var resultModal = doc.querySelector('.js-resultModal');
   var prize = doc.querySelector('.js-prize');
   var failedModal = doc.querySelector('.js-failedModal');
-  var returnTop = doc.querySelectorAll('.js-returnTop');
-  fetch('https://api-charades-fzx9fn3j387f.netlify.app/.netlify/functions/quiz-millionaire').then(function (res) {
-    return res.json();
-  }).then(function (res) {
-    return state.jsonData = res;
-  }); // fetch api でクイズ情報のjsonファイルを取得 > ローカル変数へ格納 > ゲームを実行
+  var returnTop = doc.querySelectorAll('.js-returnTop'); // Startがクリックされたら、fetchでapiを叩く > state.jsonDataにデータを格納 > 問題を設置
 
   var gameStart = function gameStart() {
     startModal.classList.add('hidden');
-    setQuestion();
+    fetch('https://api-charades-fzx9fn3j387f.netlify.app/.netlify/functions/quiz-millionaire').then(function (res) {
+      return res.json();
+    }).then(function (res) {
+      return state.jsonData = res;
+    }).then(function () {
+      return setQuestion();
+    })["catch"](function () {
+      console.error('データ取得に失敗しました。再読み込みをしてください。');
+    });
   }; // 問題と選択肢と、挑戦中の賞金を表示
 
 
