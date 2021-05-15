@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>millionaire</title>
+  <title>Quiz Millionaire Poi</title>
   <link rel="stylesheet" href="./style.css">
 </head>
 <body>
@@ -15,34 +15,54 @@
   </div>
 
   <!-- 問題文を表示する要素 -->
-  <div class="questionText js-questionText">---</div>
+  <div class="questionText">
+    <div class="questionTextInner js-questionText">---</div>
+  </div>
 
   <!-- 選択肢を表示する要素 -->
   <ul class="answerList">
-    <li class="answerItem js-choicesItem">---</li>
-    <li class="answerItem js-choicesItem">---</li>
-    <li class="answerItem js-choicesItem">---</li>
-    <li class="answerItem js-choicesItem">---</li>
+    <li class="answerItem">
+      <p class="answerItemInner js-choicesItem">---</p>
+    </li>
+    <li class="answerItem">
+      <p class="answerItemInner js-choicesItem">---</p>
+    </li>
+    <li class="answerItem">
+      <p class="answerItemInner js-choicesItem">---</p>
+    </li>
+    <li class="answerItem">
+      <p class="answerItemInner js-choicesItem">---</p>
+    </li>
   </ul>
 
   <!-- スタート画面 -->
   <div class="modal startModal js-startModal">
     <h1 class="modal__title">Quiz Millionaire</h1>
-    <button class="modal__button js-startButton">Start</button>
+    <div class="modal__button">
+      <div class="modal__buttonInner js-startButton">Start</div>
+    </div>
   </div>
 
   <!-- ファイナルアンサー確認画面 -->
   <div class="modal confirmModal js-confirmModal">
     <p class="modal__text">ファイナルアンサー？</p>
-    <button class="modal__button js-finalAnswer">ファイナルアンサー</button>
-    <button class="modal__button js-rethink">考え直す</button>
+    <div class="modal__button">
+      <div class="modal__buttonInner js-finalAnswer">ファイナルアンサー</div>
+    </div>
+    <div class="modal__button">
+      <div class="modal__buttonInner js-rethink">考え直す</div>
+    </div>
   </div>
 
   <!-- 正解画面 -->
   <div class="modal successModal js-successModal">
     <p class="modal__text">正解！</p>
-    <button class="modal__button js-nextQuestion">次の問題へ</button>
-    <button class="modal__button js-dropout">ドロップアウト</button>
+    <div class="modal__button">
+      <div class="modal__buttonInner js-nextQuestion">次の問題へ</div>
+    </div>
+    <div class="modal__button">
+      <div class="modal__buttonInner js-dropout">ドロップアウト</div>
+    </div>
   </div>
 
   <!-- リザルト画面 -->
@@ -51,13 +71,17 @@
     <p class="modal__text">
       あなたが獲得した賞金は<span class="modal__text--large js-prize"></span>です。
     </p>
-    <button class="modal__button js-returnTop">トップへ戻る</button>
+    <div class="modal__button">
+      <div class="modal__buttonInner js-returnTop">トップへ戻る</div>
+    </div>
   </div>
 
   <!-- 不正解画面 -->
   <div class="modal failedModal js-failedModal">
     <p class="modal__text">残念...</p>
-    <button class="modal__button js-returnTop">トップへ戻る</button>
+    <div class="modal__button">
+      <div class="modal__buttonInner js-returnTop">トップへ戻る</div>
+    </div>
   </div>
 
   <script src="./main.js"></script>

@@ -19,11 +19,20 @@ ul {
   list-style-type: none;
 }
 
-$primary: #3c58e0;
+$blue: #3c58e0;
+$water: #55fbfb;
 $zindex: (
   modal: 100,
 );
 @mixin polygon {
+  background-image: linear-gradient(
+    135deg,
+    $water 0%,
+    $blue 25%,
+    $water 50%,
+    $blue 75%,
+    $water 100%
+  );
   clip-path: polygon(
     0 50%,
     2rem 0,
@@ -32,13 +41,38 @@ $zindex: (
     calc(100% - 2rem) 100%,
     2rem 100%
   );
+  position: relative;
+}
+@mixin polygonInner {
+  align-items: center;
+  background-color: black;
+  clip-path: polygon(
+    1px 50%,
+    calc(2rem - 2px) 0,
+    calc(100% - 2rem + 2px) 0,
+    calc(100% - 1px) 50%,
+    calc(100% - 2rem + 2px) 100%,
+    calc(2rem - 2px) 100%
+  );
+  display: flex;
+  height: calc(100% - 8px);
+  left: 4px;
+  padding: 0 2rem;
+  position: absolute;
+  top: 4px;
+  width: calc(100% - 8px);
 }
 @mixin hover {
   &:hover {
     opacity: 0.5;
   }
 }
-
+@mixin hoverInner {
+  &:hover {
+    background-color: orange;
+    color: black;
+  }
+}
 .modal {
   align-content: center;
   background-color: rgba(0, 0, 0, 0.8);
@@ -61,21 +95,28 @@ $zindex: (
     width: 100%;
   }
 
+  &__text {
+    font-weight: bold;
+  }
+
   &__button {
-    background-color: $primary;
+    background-color: $blue;
     border: none;
     color: white;
     cursor: pointer;
-    display: block;
-    font-size: 1.25rem;
     font-weight: bold;
     height: 4rem;
-    line-height: 4rem;
     margin: 0 1rem;
     user-select: none;
     width: 15rem;
     @include polygon();
-    @include hover();
+  }
+
+  &__buttonInner {
+    font-size: 1rem;
+    justify-content: center;
+    @include polygonInner();
+    @include hoverInner();
   }
 }
 
@@ -106,8 +147,10 @@ $zindex: (
   &__challengePrize {
     background-color: rgba(0, 0, 0, 0.8);
     color: white;
-    height: 2rem;
-    line-height: 2rem;
+    font-size: 1.25rem;
+    font-weight: bold;
+    height: 3rem;
+    line-height: 3rem;
     position: absolute;
     text-align: center;
     top: 13rem;
@@ -121,12 +164,16 @@ $zindex: (
   font-size: 12px;
   font-weight: bold;
   height: 4rem;
-  line-height: 4rem;
   margin: 0 auto 1rem;
   padding: 0 2rem;
   user-select: none;
   width: 40rem;
   @include polygon();
+}
+
+.questionTextInner {
+  background-color: #3c58e0;
+  @include polygonInner();
 }
 
 .answerList {
@@ -138,20 +185,24 @@ $zindex: (
 }
 
 .answerItem {
-  background-color: #3c58e0;
+  background-color: gray;
   cursor: pointer;
-  color: white;
-  font-size: 12px;
-  font-weight: bold;
   height: 4rem;
-  line-height: 4rem;
   margin-bottom: 1rem;
-  padding: 0 2rem;
   position: relative;
   user-select: none;
   width: calc(50% - 0.5rem);
   @include polygon();
-  @include hover();
+}
+
+.answerItemInner {
+  align-items: center;
+  color: white;
+  display: flex;
+  font-size: 12px;
+  font-weight: bold;
+  @include polygonInner();
+  @include hoverInner();
 }
 
 .finalAnswer {

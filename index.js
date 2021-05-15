@@ -8,6 +8,9 @@
     prizeTable: [1, 2, 3, 5, 10, 15, 25, 50, 75, 100, 150, 250, 500, 750, 1000]
   }
 
+  // 問題のリストが返ってくるjson api
+  const api = 'https://api-charades-fzx9fn3j387f.netlify.app/.netlify/functions/quiz-millionaire'
+
   // htmlから要素を取得（vanillaはこれが面倒）
   const challengePrize = doc.querySelector('.js-challengePrize')
   const questionText = doc.querySelector('.js-questionText')
@@ -25,16 +28,18 @@
   const failedModal = doc.querySelector('.js-failedModal')
   const returnTop = doc.querySelectorAll('.js-returnTop')
 
-  // Startがクリックされたら、fetchでapiを叩く > state.jsonDataにデータを格納 > 問題を設置
+  // 「Start」がクリックされたら、fetchでapiを叩く > state.jsonDataにデータを格納 > 問題を設置
   const gameStart = () => {
     startModal.classList.add('hidden')
-    fetch('https://api-charades-fzx9fn3j387f.netlify.app/.netlify/functions/quiz-millionaire')
-      .then(res => res.json())
-      .then(res => state.jsonData = res)
-      .then(() => setQuestion())
-      .catch(() => {
-        console.error('データ取得に失敗しました。再読み込みをしてください。')
-      })
+    if (state.jsonData.length) {
+      setQuestion()
+    } else {
+      fetch(api)
+        .then(res => res.json())
+        .then(res => state.jsonData = res)
+        .then(() => setQuestion())
+        .catch(() => console.error('データ取得に失敗しました。'))
+    }
   }
 
   // 問題と選択肢と、挑戦中の賞金を表示
